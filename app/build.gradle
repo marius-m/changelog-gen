@@ -1,0 +1,50 @@
+apply plugin: "application"
+apply plugin: "kotlin"
+apply plugin: "org.jetbrains.kotlin.kapt"
+apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: "de.fuerstenau.buildconfig"
+
+mainClassName = "lt.markmerkk.MainKt"
+group = "lt.markmerkk"
+version = "0.0.1"
+
+ext.experimental = true
+
+sourceCompatibility = 1.8
+
+sourceSets.main.java {
+    srcDir new File(buildDir, 'gen')
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "no.tornado:tornadofx:1.7.19"
+    implementation "org.apache.commons:commons-io:1.3.2"
+    implementation "org.slf4j:slf4j-api:1.7.12"
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl:2.9.0"
+    implementation "com.google.inject:guice:4.2.2"
+    implementation "org.kordamp.bootstrapfx:bootstrapfx-core:0.2.4"
+    implementation "com.jfoenix:jfoenix:8.0.9"
+    implementation "com.google.code.gson:gson:2.8.5"
+    implementation "io.reactivex.rxjava2:rxjava:2.2.10"
+    implementation "io.reactivex:rxjavafx:2.0.2"
+
+    testImplementation "org.mockito:mockito-core:2.8.9"
+    testImplementation "org.assertj:assertj-core:3.12.2"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:${version_kotlin}"
+    testImplementation "junit:junit:4.12"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+buildConfig {
+    appName = project.name
+    version = project.version
+    buildConfigField 'Boolean', 'EXPERIMENTAL', "$experimental"
+}

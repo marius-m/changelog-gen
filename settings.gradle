@@ -1,0 +1,4 @@
+rootProject.name = 'changelog_gen'
+include 'app'
+include 'package'
+
